@@ -1,5 +1,5 @@
-from .serializers import ProductSerializers, ReviewSerializers, CategorySerializer, CustomerSerializer
-from .models import Product, Category, Review, Customer
+from .serializers import ProductSerializers, ReviewSerializers, CategorySerializer
+from .models import Product, Category, Review
 from django.db import  models
 from rest_framework import status, viewsets, generics
 from rest_framework.decorators import action
@@ -9,11 +9,6 @@ from rest_framework.response import Response
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializers
-
-
-class CustomerViewSet(viewsets.ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
