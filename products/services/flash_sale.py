@@ -3,9 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from datetime import datetime, timedelta
 from products.models import Product, ProductViewHistory, FlashSale
-
 from rest_framework import generics, serializers
-from products.models import FlashSale
 
 
 class FlashSaleListCreateView(generics.ListCreateAPIView):
@@ -17,6 +15,7 @@ class FlashSaleListCreateView(generics.ListCreateAPIView):
             fields = ('id', 'product', 'discount_percentage', 'start_time', 'end_time')
 
     serializer_class = FlashSaleSerializer
+
 
 
 @api_view(['GET'])
