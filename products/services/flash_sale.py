@@ -24,15 +24,14 @@ def check_flash_sale(request, product_id):
     try:
         product = Product.objects.get(id=product_id)
     except Product.DoesNotExist:
-        return Response({"error": "Product not found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': "Product not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Check if the user has viewed this product before
     user_viewed = ProductViewHistory.objects.filter(user=request.user, product=product).exists()
 
-    # Check if the product is or will be on a flash sale within the next 24 hours
     upcoming_flash_sale = FlashSale.objects.filter(
         product=product,
         start_time__lte=datetime.now() + timedelta(hours=24)
+
     ).first()
 
     if user_viewed and upcoming_flash_sale:
@@ -40,11 +39,11 @@ def check_flash_sale(request, product_id):
         start_time = upcoming_flash_sale.start_time
         end_time = upcoming_flash_sale.end_time
         return Response({
-            "message": f"This product will be on a {discount}% off flash sale!",
+            "message": f"This product will be on a {discount}% of flash sale!",
             "start_time": start_time,
             "end_time": end_time
         })
     else:
         return Response({
-            "message": "No upcoming flash sales for this product."
+            "message": "No upcoming flash sales for this product"
         })
