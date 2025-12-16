@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import *
 from rest_framework.routers import DefaultRouter
-from .services.flash_sale import FlashSaleListCreateView,check_flash_sale
+from .services.flash_sale import FlashSaleListCreateView,check_flash_sale, FlashSaleListView
 from .services.product_view_history import ProductViewHistoryCreate
 
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include(router.urls)),
 
     path('sale/',FlashSaleListCreateView.as_view(), name='sale' ),
+    path('sales/',FlashSaleListView.as_view(), name='sales_all' ),
     path('check_sale/<int:product_id>/',check_flash_sale, name="product-view-history-create"),
     path('product_view/',ProductViewHistoryCreate.as_view(), name="product-view-history-create"),
 ]

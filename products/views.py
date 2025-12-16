@@ -6,7 +6,9 @@ from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .filters import Product_filter
-from django_filters import  rest_framework as django_filters
+from django_filters import rest_framework as dr
+
+
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -20,7 +22,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 2
+    page_size = 5
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -29,7 +31,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     pagination_class = CustomPagination
 
-    filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)
+    filter_backends = (dr.DjangoFilterBackend, filters.SearchFilter)
     filterset_class = Product_filter
     search_fields = ['name', 'description']
 
