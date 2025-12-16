@@ -1,9 +1,12 @@
+from rest_framework.pagination import PageNumberPagination
 from .serializers import ProductSerializers, ReviewSerializers, CategorySerializer
 from .models import Product, Category, Review
 from django.db import  models
-from rest_framework import status, viewsets, generics
+from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from .filters import Product_filter
+from django_filters import  rest_framework as django_filters
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -16,9 +19,20 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
 
 
+class CustomPagination(PageNumberPagination):
+    page_size = 2
+
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
+
+    pagination_class = CustomPagination
+
+    filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)
+    filterset_class = Product_filter
+    search_fields = ['name', 'description']
+
 
     def list(self, request, *args, **kwargs):
         """xammasini get qilish. list degani biz ozida bor funksiyani foydalanyapmiz"""
