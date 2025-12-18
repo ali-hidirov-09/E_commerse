@@ -9,6 +9,7 @@ from rest_framework.pagination import PageNumberPagination
 from django.utils.timezone import now
 from products.serializers import Flashsaleserializer
 
+
 class CustomPagination(PageNumberPagination):
     page_size = 3
 

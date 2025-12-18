@@ -7,8 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .filters import Product_filter
 from django_filters import rest_framework as dr
-
-
+from rest_framework.permissions import IsAuthenticated
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -17,6 +16,8 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated] # default = AllowAny
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -26,6 +27,8 @@ class CustomPagination(PageNumberPagination):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated] # default = AllowAny
+
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
 
