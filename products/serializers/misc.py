@@ -19,7 +19,7 @@ class ProductSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["id", "name", "category", "price", "description", "avg_rating"]
+        fields = ["id", "name", "category", "price", "description", "avg_rating", 'stock']
 
 
 class ProductViewHistorySerializer(serializers.ModelSerializer):
