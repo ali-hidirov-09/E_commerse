@@ -17,7 +17,7 @@ class CustomPagination(PageNumberPagination):
 class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [IsStaffOrReadOnly] # default = AllowAny
 
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializers
 
     pagination_class = CustomPagination

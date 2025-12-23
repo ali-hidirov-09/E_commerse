@@ -138,9 +138,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
+
     'ALGORITHM': 'HS256',
-    'SLIDING_TOKEN_LIFETIME': timedelta(hours=4),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=2),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 
@@ -158,7 +160,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'alihidirov285@gmail.com'
-EMAIL_HOST_PASSWORD = 'vwqqickmikqkbxiy'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 DJOSER = {
