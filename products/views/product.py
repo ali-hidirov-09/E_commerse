@@ -1,6 +1,6 @@
 from rest_framework.pagination import PageNumberPagination
-from .serializers import ProductSerializers, ReviewSerializers, CategorySerializer
-from .models import Product, Category, Review
+from products.serializers import ProductSerializers
+from products.models import Product
 from django.db import  models
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
@@ -8,13 +8,14 @@ from rest_framework.response import Response
 from products.filters import Product_filter
 from django_filters import rest_framework as dr
 from rest_framework.permissions import IsAuthenticated
+from products.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
 
 class CustomPagination(PageNumberPagination):
     page_size = 5
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated] # default = AllowAny
+    permission_classes = [IsStaffOrReadOnly] # default = AllowAny
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializers

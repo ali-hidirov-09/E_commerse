@@ -1,12 +1,8 @@
 from rest_framework.pagination import PageNumberPagination
-from .serializers import ProductSerializers, ReviewSerializers, CategorySerializer
-from .models import Product, Category, Review
-from django.db import  models
-from rest_framework import viewsets, filters
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from .filters import Product_filter
-from django_filters import rest_framework as dr
+from products.serializers import ReviewSerializers, CategorySerializer
+from products.models import Category, Review
+from products.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -19,7 +15,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated] # default = AllowAny
+    permission_classes = [IsStaffOrReadOnly] # default = AllowAny
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
