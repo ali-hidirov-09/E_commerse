@@ -29,6 +29,7 @@ class OrderSerializer(serializers.ModelSerializer):
         except ObjectDoesNotExist:
             raise serializers.ValidationError("Product does not exist")
 
+
     def create(self, validated_data):
         order = Order.objects.create(**validated_data)
         product = order.product
