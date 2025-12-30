@@ -26,6 +26,7 @@ class Order(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_paid = models.CharField(max_length=10, default=False)
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
