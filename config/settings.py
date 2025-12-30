@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'products',
+    'billing',
 
     "drf_yasg",
     "djoser",
@@ -173,5 +174,6 @@ DJOSER = {
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
-
+STRIPE_PUBLIC_KEY= os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY= os.environ.get('STRIPE_SECRET_KEY')
 TELEGRAM_BOT_TOKEN=os.environ.get('TELEGRAM_BOT_TOKEN')
