@@ -1,11 +1,8 @@
-from locale import currency
-
 from rest_framework import views, status
 from rest_framework.response import Response
 import stripe
 from django.conf import settings
 from .models import Payment
-from .serializers import PaymentSerializer
 from products.models import Order
 
 
@@ -14,19 +11,19 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class CreateChargeView(views.APIView):
     def post(self, request, *args, **kwargs):
-        stripe_token = request.data.get('stripe_token')
-        order_id = request.data.get('order_id')
+        stripe_token = request.data.get("stripe_token")
+        order_id = request.data.get("order_id")
 
         try:
             order = Order.objects.get(id=order_id)
         except Order.DoesNotExist:
-            return Response({'error': 'order does not found'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "order does not found"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             total_amount = order.product.price * order.quantity
             charge = stripe.Charge.create(
                 amount=int(total_amount*100),
-                currency='usd',
+                currency="usd",
                 source=stripe_token,
             )
 
@@ -39,5 +36,39 @@ class CreateChargeView(views.APIView):
             order.save()
 
             return Response({"status": "payment successful"}, status=status.HTTP_200_OK)
+
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+
+
+# class CreatePaymentIntentView(views.APIView):
+#     def post(self, request):
+#         order_id = request.data.get("order_id")
+#         try:
+#             order = Order.objects.get(id=order_id)
+#         except Order.DoesNotExist:
+#             return Response({"error": "order not found"}, status=400)
+#
+#         try:
+#             total_amount = int(order.product.price * order.quantity * 100)  # centlarda
+#
+#             intent = stripe.PaymentIntent.create(
+#                 amount=total_amount,
+#                 currency="usd",
+#                 payment_method_types=["card"],
+#             )
+#
+#             return Response({
+#                 "client_secret": intent.client_secret,
+#                 "amount": total_amount
+#             })
+#
+#         except Exception as e:
+#             return Response({"error": str(e)}, status=400)
