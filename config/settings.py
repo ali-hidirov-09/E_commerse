@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'products',
     'billing',
+    'custom_auth',
 
     "drf_yasg",
     "djoser",
