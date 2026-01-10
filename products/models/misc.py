@@ -1,11 +1,12 @@
 from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models import User
 from .product import Product
+from django.conf import settings
+
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='reviews')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     content = models.TextField()
     rating = models.PositiveIntegerField()
@@ -30,7 +31,7 @@ class FlashSale(models.Model):
 
 
 class ProductViewHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 

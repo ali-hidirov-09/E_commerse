@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
 from django.db import models
 from .product import Product
 from django.core.validators import RegexValidator
+from django.conf import settings
+
 
 phone_regex = RegexValidator(
     regex=r'^\+77\d{9}$',
@@ -25,7 +26,7 @@ class Order(models.Model):
     ]
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False, null=True)
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
