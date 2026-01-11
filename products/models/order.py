@@ -48,6 +48,6 @@ class Order(models.Model):
         return new_status in allowed_transitions.get(self.status, [])
 
     def __str__(self):
-        return f"Order{self.product.name} by {self.customer.username}"
+        return f"Order{self.product.name} by {self.customer.phone_number}"
 
 
