@@ -20,7 +20,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsStaffOrReadOnly] # default = AllowAny
+    permission_classes = [IsStaffOrReadOnly, IsAuthenticated] # default = AllowAny
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
