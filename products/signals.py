@@ -9,7 +9,7 @@ def notify_admin(sender, instance, created, **kwargs):
         send_telegram_notifications.delay(
             order_id=instance.id,
             product_name=instance.product.name,
-            customer_username=instance.customer.phone_number,
+            customer_username=instance.customer.username,
             phone_number=instance.phone_number,
             quantity=instance.quantity,
         )

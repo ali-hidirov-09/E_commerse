@@ -46,8 +46,6 @@ INSTALLED_APPS = [
 
     'products',
     'billing',
-    'custom_auth',
-
     "drf_yasg",
     "djoser",
     'rest_framework',
@@ -172,11 +170,9 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
 }
-AUTH_USER_MODEL = 'custom_auth.Customuser'
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 STRIPE_PUBLIC_KEY= os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY= os.environ.get('STRIPE_SECRET_KEY')
 TELEGRAM_BOT_TOKEN=os.environ.get('TELEGRAM_BOT_TOKEN')
-SMS_KEY = os.environ.get('SMS_KEY')
