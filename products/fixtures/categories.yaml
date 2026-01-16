@@ -1,0 +1,30 @@
+- model: products.category
+  pk: 1
+  fields:
+    name: mevalar
+
+- model: products.category
+  pk: 2
+  fields:
+    name: ichimliklar
+
+- model: products.category
+  pk: 3
+  fields:
+    name: telefonlar
+
+- model: products.category
+  pk: 4
+  fields:
+    name: konstovarlar
+
+- model: products.category
+  pk: 5
+  fields:
+    name: lavash
+
+- model: products.category
+  pk: 6
+  fields:
+    name: doner
+
