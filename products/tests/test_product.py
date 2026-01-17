@@ -21,6 +21,7 @@ class ProductViewSetTestCase(APITestCase):
         Review.objects.create(product=self.product_1, rating=3,user_id=2)
         Review.objects.create(product=self.product_2, rating=1,user_id=2)
 
+
     def test_product_list(self):
         url = reverse('product-list')
         self.client.force_authenticate(self.user)   #majbutiy auth
@@ -52,6 +53,7 @@ class ProductViewSetTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data[0]['name'], 'Iphone')
 
+
     def test_average_rated(self):
         url = reverse('product-average-rating', args=[self.product_1.id])
         self.client.force_authenticate(self.user)
@@ -66,7 +68,6 @@ class ProductViewSetTestCase(APITestCase):
         data = {'name': 'Test product', 'description': 'This is a test product', 'price': 10.00}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
 
 
     def test_permission_granted_for_staff(self):
