@@ -17,8 +17,8 @@ urlpatterns = [
     path('', include(router.urls)),
 
     path('sale/',FlashSaleListCreateView.as_view(), name='sale' ),
-    path('sales/',FlashSaleListView.as_view(), name='sales_all' ),
-    path('check_sale/<int:product_id>/',check_flash_sale, name="product-view-history-create"),
+    path('sales/', FlashSaleListView.as_view(), name='sales_all' ),
+    path('check_sale/<int:product_id>/', check_flash_sale, name="check_sale"),
     path('product_view/',ProductViewHistoryCreate.as_view(), name="product-view-history-create"),
     path('stock/replenish_stock/<int:product_id>/<int:amount>/',admin_replenish_stock,name='stock_replenish_stock'),
 ]

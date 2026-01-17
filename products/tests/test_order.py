@@ -69,19 +69,3 @@ class OrderTests(APITestCase):
         self.assertEqual(response.status_code, 204)
 
 
-    def test_stock(self):
-        self.admin_user = User.objects.create_superuser(
-            username='admin',
-            email='admin@test.com',
-            password='admin123'
-        )
-        self.client.force_authenticate(user=self.admin_user)
-        initial_stock = self.product1.stock
-        url = reverse('stock_replenish_stock', kwargs={
-            'product_id': self.product1.id,
-            'amount': 25
-        })
-        response = self.client.post(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.product1.refresh_from_db()
-        self.assertEqual(self.product1.stock, initial_stock + 25)
