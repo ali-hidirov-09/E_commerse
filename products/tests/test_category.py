@@ -47,7 +47,6 @@ class CategoryTests(APITestCase):
     def test_category_update(self):
         url = reverse('category-detail', args={self.category1.pk})
         data = {'name': 'electronic Gadgets'}
-
         response = self.client.put(url, data ,format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
