@@ -90,7 +90,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-# Docker yoki local ni aniqlash
 IS_DOCKER = os.environ.get('IS_DOCKER', 'False') == 'True'
 
 DATABASES = {
@@ -99,7 +98,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_ADMIN_USER'),
         'PASSWORD': os.environ.get('DB_ADMIN_PASSWORD'),
-        'HOST': 'db' if IS_DOCKER else os.environ.get('DB_HOST', 'localhost'),
+        'HOST': 'db' if IS_DOCKER else os.environ.get('DB_HOST','localhost'),
         'PORT': '5432',
     }
 }
