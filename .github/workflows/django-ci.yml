@@ -27,22 +27,16 @@ jobs:
           --health-retries 5
 
     env:
-      SECRET_KEY: "test_secret_key"
       DB_NAME: test_db
-      DB_USER: test_user
-      DB_PASSWORD: test_password
+      DB_ADMIN_USER: test_user
+      DB_ADMIN_PASSWORD: test_password
       DB_HOST: localhost
       DB_PORT: 5432
+      SECRET_KEY: "test_secret_key"
+      IS_DOCKER: "False"
       STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
       STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-
-
-#    env:
-#      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-#      STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
-#      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-#      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     steps:
     - uses: actions/checkout@v4
