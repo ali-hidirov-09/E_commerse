@@ -3,32 +3,88 @@ services:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/usr/src/app
+      - .:/app
     ports:
       - "8000:8000"
     env_file:
       - .env
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
 
-  rabbitmq:
-    image: rabbitmq:latest
+  db:
+    image: postgres:16
     environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_ADMIN_USER}
+      POSTGRES_PASSWORD: ${DB_ADMIN_PASSWORD}
     ports:
-      - "5672:5672"
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
 
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+
   celery:
     build: .
     command: celery -A config worker --loglevel=info
     volumes:
       - .:/app
-    depends_on:
-      - rabbitmq
-      - redis
     env_file:
-      - ./.env
+      - .env
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+
+volumes:
+  postgres_data:
+
+#
+#services:
+#  web:
+#    build: .
+#    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/usr/src/app
+#    ports:
+#      - "8000:8000"
+#    env_file:
+#      - .env
+#
+#  rabbitmq:
+#    image: rabbitmq:latest
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=guest
+#      - RABBITMQ_DEFAULT_PASS=guest
+#    ports:
+#      - "5672:5672"
+#
+#  redis:
+#    image: redis:latest
+#    ports:
+#      - "6379:6379"
+#
+#  celery:
+#    build: .
+#    command: celery -A config worker --loglevel=info
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - rabbitmq
+#      - redis
+#    env_file:
+#      - ./.env
+#
+#
+#
+#
