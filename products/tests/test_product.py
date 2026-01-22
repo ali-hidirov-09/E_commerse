@@ -17,9 +17,9 @@ class ProductViewSetTestCase(APITestCase):
         self.product_1 = Product.objects.create(name='Iphone', description="Iphone 17 pro max", category=self.category_1, price=5000)
         self.product_2 = Product.objects.create(name='Book', description="Xamsa asari ", category=self.category_2, price=2000)
 
-        Review.objects.create(product=self.product_1, rating=5,user_id=1)
-        Review.objects.create(product=self.product_1, rating=3,user_id=2)
-        Review.objects.create(product=self.product_2, rating=1,user_id=2)
+        Review.objects.create(product=self.product_1, rating=5,user_id=self.user)
+        Review.objects.create(product=self.product_1, rating=3,user_id=self.staff_user)
+        Review.objects.create(product=self.product_2, rating=1,user_id=self.staff_user)
 
 
     def test_product_list(self):
