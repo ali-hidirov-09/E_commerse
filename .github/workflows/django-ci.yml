@@ -9,11 +9,41 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_ADMIN_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
       STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_ADMIN_USER }}
+      DB_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+
+
+#    env:
+#      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+#      STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
+#      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+#      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     steps:
     - uses: actions/checkout@v4
