@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from .tasks import send_telegram_notifications
 import sys
 
+
 @receiver(post_save, sender=Order)
 def notify_admin(sender, instance, created, **kwargs):
     if 'test' in sys.argv:
@@ -17,4 +18,3 @@ def notify_admin(sender, instance, created, **kwargs):
             phone_number=instance.phone_number,
             quantity=instance.quantity,
         )
-
