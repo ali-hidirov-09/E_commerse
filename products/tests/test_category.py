@@ -20,7 +20,6 @@ class CategoryTests(APITestCase):
         )
         self.client.force_authenticate(user=self.admin_user)
 
-
     def test_category_list(self):
         url = reverse('category-list')
         response = self.client.get(url)
@@ -28,47 +27,26 @@ class CategoryTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 6)
 
-
     def test_category_detail(self):
         url = reverse('category-detail', args={self.category1.pk})
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-
     def test_category_create(self):
         url = reverse('category-list')
         data = {'name': 'Books'}
 
-        response = self.client.post(url, data ,format='json')
+        response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
 
     def test_category_update(self):
         url = reverse('category-detail', args={self.category1.pk})
         data = {'name': 'electronic Gadgets'}
-        response = self.client.put(url, data ,format='json')
+        response = self.client.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
 
     def test_category_delete(self):
         url = reverse('category-detail', args={self.category1.pk})
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
