@@ -17,10 +17,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
 
-
     def is_in_stock(self):
         return self.stock > 0
-
 
     def reduce_stock(self, quantity):
         if quantity > self.stock:
@@ -36,7 +34,6 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['name']
-
 
     def __str__(self):
         return self.name
