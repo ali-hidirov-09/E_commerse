@@ -3,7 +3,6 @@ from .product import Product
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 
-
 phone_regex = RegexValidator(
     regex=r'^\+77\d{9}$',
     message="Phone number must be in the format: +77XXXXXXXXX"
@@ -11,11 +10,11 @@ phone_regex = RegexValidator(
 
 
 class Order(models.Model):
-    PENDING = 'Pending'         # ZAKAZ KETTI BAZAGA
-    PROGRESSING = 'Progressing' # ADMINLAR ZAKAZNI KO'RIB UPAKOVKALANDI
-    SHIPPED = 'Shipped'         # YUKLANDI
-    DELIVERED = 'Delivered'     # YETKAIZB BERILDI
-    CANCELED = 'Canceled'       # OTKAZ QILINDI
+    PENDING = 'Pending'  # ZAKAZ KETTI BAZAGA
+    PROGRESSING = 'Progressing'  # ADMINLAR ZAKAZNI KO'RIB UPAKOVKALANDI
+    SHIPPED = 'Shipped'  # YUKLANDI
+    DELIVERED = 'Delivered'  # YETKAIZB BERILDI
+    CANCELED = 'Canceled'  # OTKAZ QILINDI
 
     STATUS_CHOICES = [
         (PENDING, 'Pending'),
@@ -49,5 +48,3 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order{self.product.name} by {self.customer.phone_number}"
-
-
