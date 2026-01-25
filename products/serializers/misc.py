@@ -27,6 +27,7 @@ class ProductViewHistorySerializer(serializers.ModelSerializer):
         model = ProductViewHistory
         fields = '__all__'
 
+
 class Flashsaleserializer(serializers.ModelSerializer):
     class Meta:
         model = FlashSale
