@@ -1,6 +1,7 @@
 # E_commerse
-DRF dagi birinchi katta kodim
+DRF dagi birinchi eng katta kodim
 
+Bu erda odamlar narsa xarid qilishi mumkin, xoxlagan narsasini ularni zakaz qilishi xam mumkin
 E-commerce API
 
 docker-compose exec web python manage.py createsuperuser
