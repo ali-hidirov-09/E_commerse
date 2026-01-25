@@ -1,21 +1,21 @@
 from rest_framework.pagination import PageNumberPagination
 from products.serializers import ProductSerializers
 from products.models import Product
-from django.db import  models
+from django.db import models
 from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from products.filters import Product_filter
 from django_filters import rest_framework as dr
-from rest_framework.permissions import IsAuthenticated
-from products.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
+from products.permissions import IsStaffOrReadOnly
+
 
 class CustomPagination(PageNumberPagination):
     page_size = 5
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsStaffOrReadOnly] # default = AllowAny
+    permission_classes = [IsStaffOrReadOnly]  \
 
     queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializers
@@ -26,14 +26,12 @@ class ProductViewSet(viewsets.ModelViewSet):
     filterset_class = Product_filter
     search_fields = ['name', 'description']
 
-
     def list(self, request, *args, **kwargs):
         """xammasini get qilish. list degani biz ozida bor funksiyani foydalanyapmiz"""
         category = request.query_params.get('category', None)
         if category:
             self.queryset = self.queryset.filter(category=category)
         return super().list(request, *args, **kwargs)
-
 
     def retrieve(self, request, *args, **kwargs):
         """Bu faqat bittasini get qilganda, va  biz buni xam ozgartiramiz aslida esa bu bor edi"""
@@ -42,8 +40,8 @@ class ProductViewSet(viewsets.ModelViewSet):
         related_products = Product.objects.filter(category=instance.category).exclude(id=instance.id)[:5]
         related_serializer = ProductSerializers(related_products, many=True)
         return Response({
-            "product":serializer.data,
-            "ralated_products":related_serializer.data
+            "product": serializer.data,
+            "ralated_products": related_serializer.data
         })
 
     @action(detail=False, methods=['get'])
@@ -51,7 +49,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         top_products = Product.objects.annotate(avg_rating=models.Avg('reviews__rating')).order_by('-avg_rating')[:3]
         serializer = ProductSerializers(top_products, many=True)
         return Response(serializer.data)
-
 
     @action(detail=True, methods=['get'])
     def average_rating(self, request, pk=None):
@@ -64,4 +61,3 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         avg_rating = sum([review.rating for review in reviews]) / reviews.count()
         return Response({"average_rating": avg_rating})
-

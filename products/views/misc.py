@@ -9,9 +9,11 @@ from rest_framework.permissions import IsAuthenticated
 class CustomPagination(PageNumberPagination):
     page_size = 5
 
+
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializers
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
@@ -20,8 +22,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsStaffOrReadOnly, IsAuthenticated] # default = AllowAny
+    permission_classes = [IsStaffOrReadOnly, IsAuthenticated]  # default = AllowAny
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-
