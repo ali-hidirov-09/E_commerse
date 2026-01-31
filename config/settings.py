@@ -16,6 +16,40 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+
+
+#############################################
+import os
+import dj_database_url
+
+# ALLOWED_HOSTS
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+
+# Database - Railway uchun to'g'ri variant
+if 'DATABASE_URL' in os.environ:
+    # Railway environment
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+else:
+    # Local environment
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_ADMIN_USER'),
+            'PASSWORD': os.environ.get('DB_ADMIN_PASSWORD'),
+            'HOST': 'db' if os.environ.get('IS_DOCKER') == 'True' else 'localhost',
+            'PORT': '5432',
+        }
+    }
+
+##################################
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,9 +63,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['*']
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
@@ -87,25 +119,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 IS_DOCKER = os.environ.get('IS_DOCKER', 'False') == 'True'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_ADMIN_USER'),
-        'PASSWORD': os.environ.get('DB_ADMIN_PASSWORD'),
-        'HOST': 'db' if IS_DOCKER else os.environ.get('DB_HOST','localhost'),
-        'PORT': '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': os.environ.get('DB_NAME'),
 #         'USER': os.environ.get('DB_ADMIN_USER'),
 #         'PASSWORD': os.environ.get('DB_ADMIN_PASSWORD'),
-#         'HOST': os.environ.get('DB_HOST', 'db'),
-#         'PORT': os.environ.get('DB_PORT', '5432'),
+#         'HOST': 'db' if IS_DOCKER else os.environ.get('DB_HOST','localhost'),
+#         'PORT': '5432',
 #     }
 # }
 
