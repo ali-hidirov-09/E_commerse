@@ -10,6 +10,7 @@ from django_filters import rest_framework as dr
 from products.permissions import IsStaffOrReadOnly
 
 
+
 class CustomPagination(PageNumberPagination):
     page_size = 5
 
