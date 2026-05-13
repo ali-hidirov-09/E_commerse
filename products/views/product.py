@@ -12,7 +12,7 @@ from products.permissions import IsStaffOrReadOnly
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 5
+    page_size = 10
 
 
 class ProductViewSet(viewsets.ModelViewSet):

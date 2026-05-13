@@ -1,10 +1,10 @@
 from django.urls import path, include
-from .views import *
+from .views import OrderViewSet, CategoryViewSet, ReviewViewSet, ProductViewSet
 from rest_framework.routers import DefaultRouter
 from .services.flash_sale import FlashSaleListCreateView, check_flash_sale, FlashSaleListView
 from .services.product_view_history import ProductViewHistoryCreate
 from .services import admin_replenish_stock
-from . import signals
+
 
 router = DefaultRouter()
 router.register(r"products", ProductViewSet)
