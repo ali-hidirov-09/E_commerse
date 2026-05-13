@@ -1,2 +1,2 @@
-from .misc import *
-from .product import *
+from .misc import OrderViewSet, CategoryViewSet, ReviewViewSet
+from .product import ProductViewSet
