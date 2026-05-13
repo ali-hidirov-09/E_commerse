@@ -1,8 +1,10 @@
 from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
-from products.models import Product, Category, Review, User
+from products.models import Product, Category, Review
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class ProductViewSetTestCase(APITestCase):
 
