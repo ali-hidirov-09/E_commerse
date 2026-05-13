@@ -32,6 +32,9 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
     phone_number = models.CharField(validators=[phone_regex], max_length=13, blank=True, null=True)
 
+    class Meta:
+        ordering = ['-id']
+
     def set_status(self, new_status):
         if new_status not in dict(self.STATUS_CHOICES):
             raise ValueError("Invalid Status")
