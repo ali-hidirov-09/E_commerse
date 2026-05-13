@@ -1,13 +1,13 @@
 from rest_framework.pagination import PageNumberPagination
-from products.serializers import *
-from products.models import *
+from products.serializers import ReviewSerializers, OrderSerializer, CategorySerializer
+from products.models import Order, Review, Category
 from products.permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 5
+    page_size = 10
 
 
 class ReviewViewSet(viewsets.ModelViewSet):

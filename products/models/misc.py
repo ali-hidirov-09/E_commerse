@@ -1,7 +1,6 @@
 from django.utils import timezone
 from django.db import models
 from .product import Product
-from django.conf import settings
 from django.contrib.auth.models import User
 
 
@@ -27,6 +26,7 @@ class FlashSale(models.Model):
         return self.start_time <= now <= self.end_time
 
     class Meta:
+        ordering = ['-start_time']
         unique_together = ('product', 'start_time', 'end_time')
 
 

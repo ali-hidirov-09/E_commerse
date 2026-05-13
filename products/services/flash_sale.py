@@ -11,7 +11,7 @@ from products.serializers import Flashsaleserializer
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 3
+    page_size = 10
 
 
 class FlashSaleListCreateView(generics.ListCreateAPIView):
